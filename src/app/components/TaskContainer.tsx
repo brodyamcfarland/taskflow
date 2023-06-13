@@ -53,18 +53,18 @@ const TaskContainer = () => {
      };
 
      return (
-          <div className="w-full h-full flex-1 max-w-4xl flex flex-col">
+          <div className="flex flex-col max-w-5xl h-full w-full mx-auto bg-gradient-to-br from-white/10 to-black border-4 border-b-white/10 border-r-white/20 border-t-white/30 border-l-white/40">
                <DragDropContext onDragEnd={handleDragEnd}>
-                    <Droppable droppableId="taskList" direction="horizontal">
+                    <Droppable droppableId="taskList">
                          {(provided) => (
                               <div
-                                   className="md:grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 flex flex-col gap-4 border p-4 bg-white/40"
+                                   className="flex flex-col gap-2 w-full flex-1 p-2 overflow-y-auto"
                                    ref={provided.innerRef}
                                    {...provided.droppableProps}
                               >
                                    {tasks.map((task, index) => (
                                         <Draggable
-                                             key={task.id}
+                                             key={task.id.toString()}
                                              draggableId={task.id.toString()}
                                              index={index}
                                         >
@@ -73,36 +73,17 @@ const TaskContainer = () => {
                                                        ref={provided.innerRef}
                                                        {...provided.draggableProps}
                                                        {...provided.dragHandleProps}
+                                                       className="bg-black"
                                                   >
-                                                       <Droppable
-                                                            droppableId={task.id.toString()}
-                                                            direction="vertical"
-                                                       >
-                                                            {(provided) => (
-                                                                 <div
-                                                                      ref={
-                                                                           provided.innerRef
-                                                                      }
-                                                                      {...provided.droppableProps}
-                                                                      className="grid-item bg-black"
-                                                                 >
-                                                                      <TaskItem
-                                                                           task={
-                                                                                task
-                                                                           }
-                                                                           updateTask={
-                                                                                updateTask
-                                                                           }
-                                                                           deleteTask={
-                                                                                deleteTask
-                                                                           }
-                                                                      />
-                                                                      {
-                                                                           provided.placeholder
-                                                                      }
-                                                                 </div>
-                                                            )}
-                                                       </Droppable>
+                                                       <TaskItem
+                                                            task={task}
+                                                            updateTask={
+                                                                 updateTask
+                                                            }
+                                                            deleteTask={
+                                                                 deleteTask
+                                                            }
+                                                       />
                                                   </div>
                                              )}
                                         </Draggable>
