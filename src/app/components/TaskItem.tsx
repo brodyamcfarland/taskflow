@@ -94,7 +94,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
 
      return (
           <div
-               className={`flex gap-1 h-36 md:h-34 items-center justify-start py-1 px-3 border-2 rounded-md ${
+               className={`flex gap-1 h-36 md:h-34 items-center justify-start py-1 px-3 border-2 max-w-full rounded-md ${
                     task.completed
                          ? "border-emerald-500/50"
                          : "border-gray-500/50"
@@ -104,7 +104,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
                     type="checkbox"
                     checked={task.completed}
                     onChange={handleCheckboxChange}
-                    className="appearance-none rounded-full border-2 border-gray-600 checked:bg-emerald-500/75 checked:border-gray-600 h-5 w-5 hover:cursor-pointer"
+                    className="flex-shrink-0 appearance-none rounded-full border-2 border-gray-600 checked:bg-emerald-500/75 checked:border-gray-600 h-5 w-5 hover:cursor-pointer"
                />
                {editing ? (
                     <textarea
@@ -113,13 +113,15 @@ const TaskItem: React.FC<TaskItemProps> = ({
                          className="h-20 flex-1 p-3 overflow-y-auto bg-gradient-to-br from-[#242424] to-black rounded-sm text-white ml-2"
                     />
                ) : (
-                    <div className="flex flex-col flex-1 ml-2">
+                    <div className="flex flex-col flex-1 w-full">
                          <span className="text-[10px] text-gray-300 tracking-widest text-center border-b border-white/20">
                               TASK
                          </span>
-                         <span className="h-20 p-3 text-sm overflow-y-auto">
-                              {task.title}
-                         </span>
+                         <div className="flex flex-col flex-1 w-full">
+                              <span className="h-20 p-3 text-sm overflow-y-auto overflow-x-hidden">
+                                   {task.title}
+                              </span>
+                         </div>
                     </div>
                )}
                <div className="flex flex-col gap-2 items-center justify-center mx-2">
