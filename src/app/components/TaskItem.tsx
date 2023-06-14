@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Task } from "./TaskContainer";
 import { HiOutlinePencil, HiOutlineTrash } from "react-icons/hi";
 import { BiStop, BiPlay } from "react-icons/bi";
+import { AiOutlineCheck } from "react-icons/ai";
 
 interface TaskItemProps {
      task: Task;
@@ -25,6 +26,12 @@ const TaskItem: React.FC<TaskItemProps> = ({
           }
      }, [task.completed, timerId]);
 
+     useEffect(() => {
+          // Update the task's timeTaken value in local storage
+          const updatedTask = { ...task, timeTaken };
+          updateTask(task.id, updatedTask);
+     }, [timeTaken]);
+
      const startTimer = () => {
           const id: NodeJS.Timeout = setInterval(
                () => setTimeTaken((prevTime) => prevTime + 1),
@@ -46,7 +53,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
           const seconds = time % 60;
 
           return (
-               <div className="flex border-2 border-b-white/20 border-r-white/20 border-white/40 items-center justify-center text-xs divide-x-[1px] divide-white/30">
+               <div className="flex flex-col md:flex-row border-2 border-b-white/20 border-r-white/20 border-white/40 items-center justify-center text-xs divide-y-[1px] md:divide-x-[1px] divide-white/30">
                     <div className="flex flex-col items-center justify-center w-10">
                          <span>{hours}</span>
                          <span className="text-gray-400">Hrs</span>
@@ -87,7 +94,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
 
      return (
           <div
-               className={`flex gap-1 h-32 items-center justify-start py-1 px-3 border-2 rounded-md ${
+               className={`flex gap-1 h-36 md:h-34 items-center justify-start py-1 px-3 border-2 rounded-md ${
                     task.completed
                          ? "border-emerald-500/50"
                          : "border-gray-500/50"
@@ -103,10 +110,10 @@ const TaskItem: React.FC<TaskItemProps> = ({
                     <textarea
                          value={editedTitle}
                          onChange={(e) => setEditedTitle(e.target.value)}
-                         className="h-20 flex-1 p-3 overflow-y-auto bg-gradient-to-br from-[#363636] to-black rounded-sm text-white"
+                         className="h-20 flex-1 p-3 overflow-y-auto bg-gradient-to-br from-[#242424] to-black rounded-sm text-white ml-2"
                     />
                ) : (
-                    <div className="flex flex-col flex-1">
+                    <div className="flex flex-col flex-1 ml-2">
                          <span className="text-[10px] text-gray-300 tracking-widest text-center border-b border-white/20">
                               TASK
                          </span>
@@ -119,9 +126,9 @@ const TaskItem: React.FC<TaskItemProps> = ({
                     {editing ? (
                          <button
                               onClick={handleSaveClick}
-                              className="border px-1"
+                              className="rounded-full p-1 hover:bg-green-500/50 duration-700"
                          >
-                              Save
+                              <AiOutlineCheck size={20} />
                          </button>
                     ) : (
                          <button
@@ -141,14 +148,18 @@ const TaskItem: React.FC<TaskItemProps> = ({
                     </button>
                </div>
                {task.completed ? (
-                    <span className="w-[132px] text-center text-xs">
-                         <span className="text-gray-200">Completion Time</span>{" "}
+                    <span className="md:w-[132px] text-center text-xs flex flex-col items-center justify-center">
+                         <span className="text-gray-200 hidden md:block">
+                              Completion Time
+                         </span>{" "}
                          {formatTime(timeTaken)}{" "}
                     </span>
                ) : (
                     <div className="flex flex-col items-center justify-center">
-                         <span className="ml-2">{formatTime(timeTaken)}</span>
-                         <div className="flex text-xs border-2 border-t-0 border-l-white/20 border-b-white/30 border-r-white/40 divide-x-[1px] divide-white/30">
+                         <span className="ml-0 md:ml-2">
+                              {formatTime(timeTaken)}
+                         </span>
+                         <div className="flex text-xs border-2 border-t-white/10 md:border-t-transparent border-l-white/20 border-b-white/30 border-r-white/40 divide-x-[1px] divide-white/30">
                               <button
                                    onClick={startTimer}
                                    className="px-1 hover:bg-white/10 duration-500"

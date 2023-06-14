@@ -30,7 +30,7 @@ const TaskForm = ({ addTask }: TaskFormProps) => {
      return (
           <form
                onSubmit={handleSubmit}
-               className="flex items-center justify-center border-t-white/30 border-t-4 gap-2 p-1 bg-black px-2"
+               className="flex items-center justify-center border-t-white/30 border-t-4 gap-2 p-2 bg-black"
           >
                <textarea
                     value={taskTitle}
