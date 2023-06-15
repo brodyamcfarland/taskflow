@@ -56,7 +56,6 @@ const TaskForm = ({ addTask }: TaskFormProps) => {
                <textarea
                     value={taskTitle}
                     onChange={handleInputChange}
-                    placeholder="Enter task"
                     className="w-full border-2 border-white/40 bg-black text-white p-2 scrollbarstyle resize-none text-sm h-28"
                />
                <button
