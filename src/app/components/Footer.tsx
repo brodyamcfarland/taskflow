@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
      RiGithubLine,
      RiGithubFill,
@@ -8,7 +9,9 @@ import {
 const Footer = () => {
      return (
           <footer className="flex gap-4 py-2">
-               <button
+               <Link
+                    href={"https://github.com/brodyamcfarland/taskflow"}
+                    target="_blank"
                     className="flex flex-col items-center justify-center md:opacity-50 md:hover:opacity-100 duration-700"
                     title="Github - Code"
                >
@@ -16,8 +19,10 @@ const Footer = () => {
                     <span className="text-[9px] tracking-widest text-gray-300">
                          Code
                     </span>
-               </button>
-               <button
+               </Link>
+               <Link
+                    href={"https://github.com/brodyamcfarland"}
+                    target="_blank"
                     className="flex flex-col items-center justify-center md:opacity-50 md:hover:opacity-100 duration-700"
                     title="Github - Dev"
                >
@@ -25,8 +30,12 @@ const Footer = () => {
                     <span className="text-[9px] tracking-widest text-gray-300">
                          Dev
                     </span>
-               </button>
-               <button
+               </Link>
+               <Link
+                    href={
+                         "https://www.linkedin.com/in/brody-mcfarland-93a91b106/"
+                    }
+                    target="_blank"
                     className="flex flex-col items-center justify-center md:opacity-50 md:hover:opacity-100 duration-700"
                     title="LinkedIn"
                >
@@ -34,8 +43,10 @@ const Footer = () => {
                     <span className="text-[9px] tracking-widest text-gray-300">
                          LinkedIn
                     </span>
-               </button>
-               <button
+               </Link>
+               <Link
+                    href={"https://twitter.com/home"}
+                    target="_blank"
                     className="flex flex-col items-center justify-center md:opacity-50 md:hover:opacity-100 duration-700"
                     title="Twitter"
                >
@@ -43,7 +54,7 @@ const Footer = () => {
                     <span className="text-[9px] tracking-widest text-gray-300">
                          Twitter
                     </span>
-               </button>
+               </Link>
           </footer>
      );
 };

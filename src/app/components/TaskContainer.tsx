@@ -58,7 +58,7 @@ const TaskContainer = () => {
                     <Droppable droppableId="taskList">
                          {(provided) => (
                               <div
-                                   className="flex flex-col gap-2 w-full flex-1 p-2 overflow-y-auto"
+                                   className="flex flex-col gap-2 w-full flex-1 p-2 overflow-y-auto scrollbarstyle"
                                    ref={provided.innerRef}
                                    {...provided.droppableProps}
                               >
@@ -73,7 +73,7 @@ const TaskContainer = () => {
                                                        ref={provided.innerRef}
                                                        {...provided.draggableProps}
                                                        {...provided.dragHandleProps}
-                                                       className="bg-black"
+                                                       className="bg-black w-full"
                                                   >
                                                        <TaskItem
                                                             task={task}

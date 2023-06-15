@@ -102,6 +102,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
           >
                <input
                     type="checkbox"
+                    title="Mark Complete"
                     checked={task.completed}
                     onChange={handleCheckboxChange}
                     className="flex-shrink-0 appearance-none rounded-full border-2 border-gray-600 checked:bg-emerald-500/75 checked:border-gray-600 h-5 w-5 hover:cursor-pointer"
@@ -110,32 +111,41 @@ const TaskItem: React.FC<TaskItemProps> = ({
                     <textarea
                          value={editedTitle}
                          onChange={(e) => setEditedTitle(e.target.value)}
-                         className="h-20 flex-1 p-3 overflow-y-auto bg-gradient-to-br from-[#242424] to-black rounded-sm text-white ml-2"
+                         className="h-20 flex-1 p-3 overflow-y-auto bg-black border-2 border-yellow-200/50 to-black rounded-sm text-white ml-2 scrollbarstyle resize-none text-sm"
                     />
                ) : (
-                    <div className="flex flex-col flex-1 w-full">
+                    <div className="flex flex-col max-w-full flex-1 overflow-auto">
                          <span className="text-[10px] text-gray-300 tracking-widest text-center border-b border-white/20">
                               TASK
                          </span>
-                         <div className="flex flex-col flex-1 w-full">
-                              <span className="h-20 p-3 text-sm overflow-y-auto overflow-x-hidden">
-                                   {task.title}
-                              </span>
-                         </div>
+
+                         <span className="h-20 p-3 text-sm overflow-y-auto scrollbarstyle hover:cursor-pointer">
+                              {task.title.split("\n").map((line, index) => (
+                                   <React.Fragment key={index}>
+                                        {line}
+                                        <br />{" "}
+                                        {/* Add line break after each line */}
+                                   </React.Fragment>
+                              ))}
+                         </span>
                     </div>
                )}
                <div className="flex flex-col gap-2 items-center justify-center mx-2">
                     {editing ? (
                          <button
                               onClick={handleSaveClick}
-                              className="rounded-full p-1 hover:bg-green-500/50 duration-700"
+                              className={`rounded-full p-1 hover:bg-green-500/50 duration-700 border-2 ${
+                                   editing
+                                        ? "border-yellow-200/50"
+                                        : "border-transparent"
+                              }`}
                          >
                               <AiOutlineCheck size={20} />
                          </button>
                     ) : (
                          <button
                               onClick={handleEditClick}
-                              className="rounded-full p-1 hover:bg-yellow-500/50 duration-700"
+                              className="rounded-full p-1 hover:bg-yellow-500/50 duration-700 border-2 border-transparent"
                               title="Edit"
                          >
                               <HiOutlinePencil size={20} />
@@ -143,7 +153,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
                     )}
                     <button
                          onClick={handleDeleteClick}
-                         className="rounded-full p-1 hover:bg-red-500/50 duration-700"
+                         className="rounded-full p-1 hover:bg-red-500/50 duration-700 border-2 border-transparent"
                          title="Delete"
                     >
                          <HiOutlineTrash size={20} />

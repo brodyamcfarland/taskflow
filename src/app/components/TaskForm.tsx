@@ -7,10 +7,31 @@ interface TaskFormProps {
 }
 
 const TaskForm = ({ addTask }: TaskFormProps) => {
-     const [taskTitle, setTaskTitle] = useState("");
+     const [taskTitle, setTaskTitle] = useState("• ");
 
      const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-          setTaskTitle(e.target.value);
+          const inputValue = e.target.value;
+
+          // Split the input into lines
+          const lines = inputValue.split("\n");
+
+          // Remove any existing bullet points at the beginning of each line
+          const formattedLines = lines.map((line) => line.replace(/^•\s*/, ""));
+
+          // Add a bullet point prefix to each line
+          const formattedValue = formattedLines
+               .map((line, index) => {
+                    if (
+                         index === formattedLines.length - 1 &&
+                         line.trim() === ""
+                    ) {
+                         return line; // Preserve the empty last line without a bullet point
+                    }
+                    return `• ${line}`;
+               })
+               .join("\n");
+
+          setTaskTitle(formattedValue);
      };
 
      const handleSubmit = (e: React.FormEvent) => {
@@ -36,7 +57,7 @@ const TaskForm = ({ addTask }: TaskFormProps) => {
                     value={taskTitle}
                     onChange={handleInputChange}
                     placeholder="Enter task"
-                    className="w-full border-2 border-white/40 bg-black text-white p-2"
+                    className="w-full border-2 border-white/40 bg-black text-white p-2 scrollbarstyle resize-none text-sm h-28"
                />
                <button
                     type="submit"
